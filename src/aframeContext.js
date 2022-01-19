@@ -68,85 +68,32 @@ export default class AframeContext {
         this.container.web2vr = web2vr;
     }
 
-    createSky() {
-        // create sky if sky doesnt exist
-        if (document.getElementsByTagName("a-sky").length == 0 && this.settings.skybox) {
-            this.sky = document.createElement("a-sky");
-            this.sky.setAttribute("color", "#a9f8fe");
-            this.scene.appendChild(this.sky);
-        }
-    }
-
     createControllers() {
-        // cursor only for dev testing on desktop
-        if (!document.getElementById("mouseCursor")) {
-            const cursor = document.createElement("a-entity");
-            cursor.id = "mouseCursor";
-            cursor.setAttribute("cursor", "rayOrigin", "mouse");
-            cursor.setAttribute("raycaster", `objects: .${this.settings.interactiveTag}, .collidable`);
-            this.scene.appendChild(cursor);
-        }
-
-        // super hands 6DOF
-        if (this.settings.createControllers && !document.getElementById("leftHand")) {
-            const raycaster = `objects: .${this.settings.interactiveTag}, .collidable; far: ${this.settings.raycasterFar}`;
-            const superhands = "colliderEvent: raycaster-intersection; colliderEventProperty: els; colliderEndEvent:raycaster-intersection-cleared; colliderEndEventProperty: clearedEls; grabStartButtons: gripdown; grabEndButtons: gripup; stretchStartButtons: gripdown; stretchEndButtons: gripup";
-
-            const leftHand = document.createElement("a-entity");
-            leftHand.id = "leftHand";
-            leftHand.setAttribute("hand-controls", "hand:left; handModelStyle: highPoly; color: #ffcccc");
-            leftHand.setAttribute("laser-controls", "");
-            leftHand.setAttribute("raycaster", raycaster);
-            leftHand.setAttribute("super-hands", superhands);
-
-            const rightHand = document.createElement("a-entity");
-            rightHand.id = "rightHand";
-            rightHand.setAttribute("hand-controls", "hand:right; handModelStyle: highPoly; color: #ffcccc");
-            rightHand.setAttribute("laser-controls", "");
-            rightHand.setAttribute("raycaster", raycaster);
-            rightHand.setAttribute("super-hands", superhands);
-
-            this.scene.appendChild(leftHand);
-            this.scene.appendChild(rightHand);
-        }
-        // keyboard
-        this.keyboard = document.getElementById("vr-keyboard");
-        if (!this.keyboard) {
-            this.keyboard = document.createElement("a-entity");
-            this.keyboard.id = "vr-keyboard";
-            this.keyboard.setAttribute("a-keyboard", "");
-            this.keyboard.setAttribute("grabbable", "");
-            this.scene.appendChild(this.keyboard);
-            this.keyboard.object3D.visible = false;
-
-            // current active input
-            this.keyboard.activeInput = null;
-            // event listener for the keyboard key press 
-            document.addEventListener('a-keyboard-update', (e) => {
-                if (this.keyboard.activeInput) {
-                    const code = parseInt(e.detail.code);
-                    let value = this.keyboard.activeInput.value;
-
-                    // backspace
-                    if (code == 8)
-                        value = value.slice(0, -1);
-                    // submit or cancel
-                    else if (code == 6 || code == 24) {
-                        this.keyboard.object3D.visible = false;
-                        this.keyboard.object3D.position.y = 10000; // because raycasting still collides with invisible objects
-                        this.keyboard.activeInput.element.active = false;
-                        this.keyboard.activeInput.element.update();
-                        this.keyboard.activeInput = null;
-                        return;
-                    }
-                    // ignore arrow keys
-                    else if (![37, 38, 39, 40].includes(code))
-                        value += e.detail.value;
-
-                    this.keyboard.activeInput.value = value;
-                    this.keyboard.activeInput.element.update();
-                }
-            });
-        }
+        // event listener for the keyboard key press 
+//        document.addEventListener('a-keyboard-update', (e) => {
+//            if (this.keyboard.activeInput) {
+//                const code = parseInt(e.detail.code);
+//                let value = this.keyboard.activeInput.value;
+//
+//                // backspace
+//                if (code == 8)
+//                    value = value.slice(0, -1);
+//                // submit or cancel
+//                else if (code == 6 || code == 24) {
+//                    this.keyboard.object3D.visible = false;
+//                    this.keyboard.object3D.position.y = 10000; // because raycasting still collides with invisible objects
+//                    this.keyboard.activeInput.element.active = false;
+//                    this.keyboard.activeInput.element.update();
+//                    this.keyboard.activeInput = null;
+//                    return;
+//                }
+//                // ignore arrow keys
+//                else if (![37, 38, 39, 40].includes(code))
+//                    value += e.detail.value;
+//
+//                this.keyboard.activeInput.value = value;
+//                this.keyboard.activeInput.element.update();
+//            }
+//        });
     }
 }

@@ -9,7 +9,6 @@
   ],
   "dependencies": {
     "aframe-gif-shader": "^0.9.1",
-    "aframe-super-keyboard": "^2.1.0",
     "deepmerge": "^4.2.2",
     "super-hands": "^3.0.2"
   },

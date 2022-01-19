@@ -1,6 +1,5 @@
 import "./plugins/eventListenerListPlugin"; // Get all event listeners for DOM elements
 import Deepmerge from "deepmerge";
-import "aframe";
 import "aframe-gif-shader";
 import "./plugins/aframe-keyboard.min";
 import "super-hands";
@@ -118,7 +117,6 @@ export default class Web2VR {
 
     init() {
         this.aframe.createContainer(this);
-        this.aframe.createSky();
         this.aframe.createControllers();
 
         this.convertToVR();
