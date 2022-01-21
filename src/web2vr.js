@@ -1,8 +1,8 @@
 import "./plugins/eventListenerListPlugin"; // Get all event listeners for DOM elements
 import Deepmerge from "deepmerge";
 import "aframe-gif-shader";
-import "./plugins/aframe-keyboard.min";
-import "super-hands";
+//import "./plugins/aframe-keyboard.min";
+//import "super-hands";
 import Settings from "./settings";
 import "./components/border";
 import "./components/animate";
